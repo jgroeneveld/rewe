@@ -2,19 +2,50 @@ package main
 
 import (
 	"fmt"
+	"github.com/urfave/cli/v2"
+	"log"
+	"os"
 	"rewe/reweapi"
 )
 
 func main() {
-	fetcher := reweapi.NewCategoriesFetcher()
+	categoriesCommand := &cli.Command{
+		Name:  "categories",
+		Usage: "fetch categories for a product",
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:     "product",
+				Required: true,
+			},
+		},
+		Action: func(c *cli.Context) error {
+			product := c.String("product")
 
-	categories, err := fetcher.Fetch("REWE Bio Apfelsaft naturtrüb 1l")
-	if err != nil {
-		panic(err.Error())
+			fetcher := reweapi.NewCategoriesFetcher()
+
+			categories, err := fetcher.Fetch(product)
+			if err != nil {
+				panic(err.Error())
+			}
+
+			for _, c := range categories {
+				fmt.Printf("%q\n", c)
+			}
+
+			return nil
+		},
 	}
 
-	for _, c := range categories {
-		fmt.Printf("%q\n", c)
+	app := &cli.App{
+		Name:  "rewe",
+		Usage: "fetch categories for products of rewes online shop",
+		Commands: []*cli.Command{
+			categoriesCommand,
+		},
+	}
+
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
-
