@@ -17,7 +17,7 @@ The product names are unqiue enough for our use case.
     - [ ] Provide cli `rewe categories --product "REWE Bio Apfelsaft naturtrüb 1l"`
     - [ ] Client that fetches the search page
     - [ ] Parser for the search page
-    - [ ] CategoriesByName combining parser and client
+    - [ ] CategoriesFetcher combining parser and client
     - [ ] Log a warning when the search contains more than one product but continue with 1st one
     - [ ] Print result to stdout
 
@@ -65,7 +65,7 @@ The product names are unqiue enough for our use case.
 ```json
 {
   "name": "REWE Bio Apfelsaft naturtrüb 1l",
-  "url": "https://shop.rewe.de/p/rewe-bio-apfelsaft-naturtrueb-1l/254615",
+  "url": "https://shop.cli.de/p/cli-bio-apfelsaft-naturtrueb-1l/254615",
   "categories": ["Getränke", "Soft Drinks", "Fruchtsäfte & Nektare", "Äpfel"]
 }
 ```
