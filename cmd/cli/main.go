@@ -25,7 +25,7 @@ func main() {
 
 			categories, err := fetcher.Fetch(product)
 			if err != nil {
-				panic(err.Error())
+				log.Fatal(err.Error())
 			}
 
 			for _, c := range categories {
