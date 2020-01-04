@@ -14,6 +14,13 @@ type SearchPageParser interface {
 	Parse(r io.Reader) (*SearchPage, error)
 }
 
+func NewCategoriesFetcher() CategoriesFetcher {
+	return CategoriesFetcher{
+		ReweClient:       &ReweClientImpl{},
+		SearchPageParser: &SearchPageParserImpl{},
+	}
+}
+
 type CategoriesFetcher struct {
 	ReweClient       ReweClient
 	SearchPageParser SearchPageParser
@@ -33,3 +40,4 @@ func (c *CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
 
 	return result.Products[0].Categories, nil
 }
+

@@ -16,8 +16,8 @@ The product names are unqiue enough for our use case.
 - [ ] ScenarioA: Enter the the name of a product and receive the categories
     - [ ] Provide cli `rewe categories --product "REWE Bio Apfelsaft naturtrüb 1l"`
     - [ ] Client that fetches the search page
-    - [ ] Parser for the search page
-    - [ ] CategoriesFetcher combining parser and client
+    - [X] Parser for the search page
+    - [X] CategoriesFetcher combining parser and client
     - [ ] Log a warning when the search contains more than one product but continue with 1st one
     - [ ] Print result to stdout
 
