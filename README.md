@@ -13,13 +13,13 @@ The product names are unqiue enough for our use case.
 
 ## Use cases when we can use the json data in search only
 
-- [ ] ScenarioA: Enter the the name of a product and receive the categories
-    - [ ] Provide cli `rewe categories --product "REWE Bio Apfelsaft naturtrüb 1l"`
-    - [ ] Client that fetches the search page
+- [X] ScenarioA: Enter the the name of a product and receive the categories
+    - [X] Provide cli `rewe categories --product "REWE Bio Apfelsaft naturtrüb 1l"`
+    - [X] Client that fetches the search page
     - [X] Parser for the search page
     - [X] CategoriesFetcher combining parser and client
-    - [ ] Log a warning when the search contains more than one product but continue with 1st one
-    - [ ] Print result to stdout
+    - [X] Log an error when the search contains more than one product
+    - [X] Print result to stdout
 
 - [ ] ScenarioB: CLI supports json output
     - [ ] Provide cli output into file `--out file.json`
