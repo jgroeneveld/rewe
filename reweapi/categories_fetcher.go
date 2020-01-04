@@ -6,14 +6,6 @@ import (
 	"rewe/util/check"
 )
 
-type ReweClient interface {
-	GetSearchPage(productName string) (io.Reader, error)
-}
-
-type SearchPageParser interface {
-	Parse(r io.Reader) (*SearchPage, error)
-}
-
 func NewCategoriesFetcher() CategoriesFetcher {
 	return CategoriesFetcher{
 		ReweClient:       &ReweClientImpl{},
@@ -41,3 +33,10 @@ func (c *CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
 	return result.Products[0].Categories, nil
 }
 
+type ReweClient interface {
+	GetSearchPage(productName string) (io.Reader, error)
+}
+
+type SearchPageParser interface {
+	Parse(r io.Reader) (*SearchPage, error)
+}
