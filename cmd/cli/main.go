@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
@@ -17,8 +16,13 @@ func main() {
 				Name:     "product",
 				Required: true,
 			},
+			&cli.BoolFlag{
+				Name: "json",
+			},
 		},
 		Action: func(c *cli.Context) error {
+			useJson := c.Bool("json")
+
 			product := c.String("product")
 
 			fetcher := reweapi.NewCategoriesFetcher()
@@ -28,8 +32,9 @@ func main() {
 				log.Fatal(err.Error())
 			}
 
-			for _, c := range categories {
-				fmt.Printf("%q\n", c)
+			err = writeCategories(categories, useJson)
+			if err != nil {
+				log.Fatal(err.Error())
 			}
 
 			return nil
