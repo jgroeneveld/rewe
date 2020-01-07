@@ -16,29 +16,29 @@ type ReweClientImpl struct {
 	BaseUrl string
 }
 
-func (r *ReweClientImpl) GetSearchPage(productName string) (io.Reader, error) {
+func (r ReweClientImpl) GetSearchPage(productName string) (io.Reader, error) {
 	response, err := http.Get(r.searchUrl(productName))
 	defer response.Body.Close()
 	if err != nil {
-	 return nil, errors.WithStack(err)
+		return nil, errors.WithStack(err)
 	}
 
 	all, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-	 return nil, errors.WithStack(err)
+		return nil, errors.WithStack(err)
 	}
 
 	return bytes.NewReader(all), nil
 }
 
-func (r *ReweClientImpl) searchUrl(query string) string {
+func (r ReweClientImpl) searchUrl(query string) string {
 	query = url2.QueryEscape(query)
 
 	url := fmt.Sprintf("%s/productList?search=%s", r.getBaseUrl(), query)
 	return url
 }
 
-func (r *ReweClientImpl) getBaseUrl() string {
+func (r ReweClientImpl) getBaseUrl() string {
 	if r.BaseUrl == "" {
 		return defaultBaseUrl
 	}

@@ -10,7 +10,7 @@ type mockReweClient struct {
 	GetSearchPageStubs map[string]io.Reader
 }
 
-func (m *mockReweClient) GetSearchPage(productName string) (io.Reader, error) {
+func (m mockReweClient) GetSearchPage(productName string) (io.Reader, error) {
 	m.t.Helper()
 
 	r, ok := m.GetSearchPageStubs[productName]
@@ -23,10 +23,10 @@ func (m *mockReweClient) GetSearchPage(productName string) (io.Reader, error) {
 
 type mockSearchPageParser struct {
 	t          *testing.T
-	ParseStubs map[io.Reader]*SearchPage
+	ParseStubs map[io.Reader]SearchPage
 }
 
-func (m *mockSearchPageParser) Parse(r io.Reader) (*SearchPage, error) {
+func (m mockSearchPageParser) Parse(r io.Reader) (SearchPage, error) {
 	m.t.Helper()
 
 	result, ok := m.ParseStubs[r]

@@ -10,7 +10,7 @@ import (
 )
 
 type SearchPage struct {
-	Products []*Product
+	Products []Product
 }
 
 type Product struct {
@@ -20,23 +20,23 @@ type Product struct {
 
 type SearchPageParserImpl struct{}
 
-func (p *SearchPageParserImpl) Parse(r io.Reader) (*SearchPage, error) {
+func (p SearchPageParserImpl) Parse(r io.Reader) (SearchPage, error) {
 	lines, err := readLines(r)
 	if err != nil {
-		return nil, err
+		return SearchPage{}, err
 	}
 
 	jsonString, err := extractJsonString(lines)
 	if err != nil {
-		return nil, err
+		return SearchPage{}, err
 	}
 
 	parsedJson, err := parseJson(jsonString)
 	if err != nil {
-		return nil, err
+		return SearchPage{}, err
 	}
-	
-	return &SearchPage{
+
+	return SearchPage{
 		Products: parsedJson.Products(),
 	}, nil
 }
@@ -87,8 +87,8 @@ type searchPageJson struct {
 	} `json:"_embedded"`
 }
 
-func (j searchPageJson) Products() []*Product {
-	products := []*Product{}
+func (j searchPageJson) Products() []Product {
+	products := []Product{}
 
 	for _, p := range j.Embedded.Products {
 		products = append(products, p.AsModel())
@@ -103,14 +103,14 @@ type productJson struct {
 	} `json:"_embedded"`
 }
 
-func (j *productJson) AsModel() *Product {
-	return &Product{
+func (j productJson) AsModel() Product {
+	return Product{
 		Name:       j.ProductName,
 		Categories: j.CategoriesAsModels(),
 	}
 }
 
-func (j *productJson) CategoriesAsModels() rewe.Categories {
+func (j productJson) CategoriesAsModels() rewe.Categories {
 	categories := rewe.Categories{}
 
 	for _, c := range j.Embedded.Categories {

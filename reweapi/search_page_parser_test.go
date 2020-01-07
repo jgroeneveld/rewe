@@ -17,7 +17,7 @@ func TestSearchPageParser(t *testing.T) {
 
 		searchPage, err := parser.Parse(file)
 		assert.NilError(t, err)
-		assert.DeepEqual(t, searchPage, &SearchPage{[]*Product{
+		assert.DeepEqual(t, searchPage, SearchPage{[]Product{
 			{
 				Name: "Landliebe Butter 250g",
 				Categories: rewe.Categories{

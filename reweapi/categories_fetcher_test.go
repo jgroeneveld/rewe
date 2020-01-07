@@ -10,16 +10,16 @@ import (
 
 func TestCategoriesFetcher(t *testing.T) {
 	getSearchPageResult := strings.NewReader("Page Content")
-	mockClient := &mockReweClient{t, map[string]io.Reader{
+	mockClient := mockReweClient{t, map[string]io.Reader{
 		"Apfelsaft": getSearchPageResult,
 	}}
 
-	parseResult := &SearchPage{Products: []*Product{{"Apfelsaft", rewe.Categories{"saft"}}}}
-	mockParser := &mockSearchPageParser{t, map[io.Reader]*SearchPage{
+	parseResult := SearchPage{Products: []Product{{"Apfelsaft", rewe.Categories{"saft"}}}}
+	mockParser := mockSearchPageParser{t, map[io.Reader]SearchPage{
 		getSearchPageResult: parseResult,
 	}}
 
-	fetcher := &CategoriesFetcher{
+	fetcher := CategoriesFetcher{
 		ReweClient:       mockClient,
 		SearchPageParser: mockParser,
 	}

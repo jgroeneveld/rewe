@@ -8,8 +8,8 @@ import (
 
 func NewCategoriesFetcher() CategoriesFetcher {
 	return CategoriesFetcher{
-		ReweClient:       &ReweClientImpl{},
-		SearchPageParser: &SearchPageParserImpl{},
+		ReweClient:       ReweClientImpl{},
+		SearchPageParser: SearchPageParserImpl{},
 	}
 }
 
@@ -18,7 +18,7 @@ type CategoriesFetcher struct {
 	SearchPageParser SearchPageParser
 }
 
-func (c *CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
+func (c CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
 	reader, err := c.ReweClient.GetSearchPage(productName)
 	if err != nil {
 		return nil, err
@@ -38,5 +38,5 @@ type ReweClient interface {
 }
 
 type SearchPageParser interface {
-	Parse(r io.Reader) (*SearchPage, error)
+	Parse(r io.Reader) (SearchPage, error)
 }
