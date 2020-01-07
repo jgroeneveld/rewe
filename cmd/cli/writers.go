@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"io"
-	"os"
 	"rewe"
 )
 
-func writeCategories(categories rewe.Categories, useJson bool) error {
+func writeCategories(w io.Writer, categories rewe.Categories, useJson bool) error {
 	var categoriesWriter CategoriesWriter
 
 	if useJson {
@@ -18,7 +17,7 @@ func writeCategories(categories rewe.Categories, useJson bool) error {
 		categoriesWriter = SimpleCategoriesWriter{}
 	}
 
-	return categoriesWriter.WriteCategories(os.Stdout, categories)
+	return categoriesWriter.WriteCategories(w, categories)
 }
 
 type CategoriesWriter interface {

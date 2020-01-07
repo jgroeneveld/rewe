@@ -6,13 +6,6 @@ import (
 	"rewe/util/check"
 )
 
-func NewCategoriesFetcher() CategoriesFetcher {
-	return CategoriesFetcher{
-		ReweClient:       ReweClientImpl{},
-		SearchPageParser: SearchPageParserImpl{},
-	}
-}
-
 type CategoriesFetcher struct {
 	ReweClient       ReweClient
 	SearchPageParser SearchPageParser
