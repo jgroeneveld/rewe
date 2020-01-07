@@ -21,10 +21,10 @@ The product names are unqiue enough for our use case.
     - [X] Log an error when the search contains more than one product
     - [X] Print result to stdout
 
-- [ ] ScenarioB: CLI supports json output
-    - [ ] Provide cli output into file `--out file.json`
-    - [ ] Provide file writer that takes result  struct and write into file as json
-    - [ ] Existing CLI uses it instead of stdout when `out` is specified
+- [X] ScenarioB: CLI supports json output
+    - [X] Provide cli output `--json`
+    - [X] Provide file writer that takes result  struct and writes to stdout
+    - [X] Existing CLI uses it instead of stdout when `out` is specified
     
 - [ ] ScenarioC: Enter list of product names and return categories
     - [ ] -> ScenarioC
