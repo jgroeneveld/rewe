@@ -1,10 +1,10 @@
 package reweapi
 
 import (
+	"bufio"
 	"encoding/json"
 	"github.com/pkg/errors"
 	"io"
-	"io/ioutil"
 	"rewe"
 	"strings"
 )
@@ -21,12 +21,7 @@ type Product struct {
 type SearchPageParserImpl struct{}
 
 func (p SearchPageParserImpl) Parse(r io.Reader) (SearchPage, error) {
-	lines, err := readLines(r)
-	if err != nil {
-		return SearchPage{}, err
-	}
-
-	jsonString, err := extractJsonString(lines)
+	jsonString, err := extractJsonString(r)
 	if err != nil {
 		return SearchPage{}, err
 	}
@@ -41,20 +36,12 @@ func (p SearchPageParserImpl) Parse(r io.Reader) (SearchPage, error) {
 	}, nil
 }
 
-func readLines(r io.Reader) ([]string, error) {
-	all, err := ioutil.ReadAll(r)
-	if err != nil {
-		return nil, errors.Wrap(err, "Cant read")
-	}
-
-	return strings.Split(string(all), "\n"), nil
-}
-
-func extractJsonString(lines []string) (string, error) {
+func extractJsonString(r io.Reader) (string, error) {
+	scanner := bufio.NewScanner(r)
 	dataLine := ""
 
-	for _, line := range lines {
-		trimmed := strings.TrimSpace(line)
+	for scanner.Scan() {
+		trimmed := strings.TrimSpace(scanner.Text())
 		if strings.HasPrefix(trimmed, "renderClientSide") {
 			dataLine = trimmed
 			break
