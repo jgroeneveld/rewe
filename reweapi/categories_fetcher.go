@@ -1,6 +1,7 @@
 package reweapi
 
 import (
+	log "github.com/sirupsen/logrus"
 	"io"
 	"rewe"
 	"rewe/util/check"
@@ -12,6 +13,9 @@ type CategoriesFetcher struct {
 }
 
 func (c CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
+	logger := log.WithField("Caller", "CategoriesFetcher.Fetch")
+	logger.Infof("Fetching categories %q", productName)
+
 	reader, err := c.ReweClient.GetSearchPage(productName)
 	if err != nil {
 		return nil, err

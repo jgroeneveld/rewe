@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -17,8 +18,14 @@ type ReweClientImpl struct {
 }
 
 func (r ReweClientImpl) GetSearchPage(productName string) (io.Reader, error) {
-	response, err := http.Get(r.searchUrl(productName))
+	logger := log.WithField("Caller", "ReweClient.GetSearchPage")
+
+	url := r.searchUrl(productName)
+	logger.Infof("GET %q", url)
+
+	response, err := http.Get(url)
 	defer response.Body.Close()
+
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}

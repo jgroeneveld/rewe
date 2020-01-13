@@ -1,9 +1,9 @@
 package main
 
 import (
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 	"io"
-	"log"
 	"os"
 	"rewe/reweapi"
 )
