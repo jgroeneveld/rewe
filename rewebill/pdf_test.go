@@ -1,7 +1,6 @@
 package rewebill
 
 import (
-	"fmt"
 	"gotest.tools/assert"
 	"os"
 	"strings"
@@ -20,8 +19,4 @@ func TestReadPdf(t *testing.T) {
 	assert.Assert(t, strings.Contains(pdf.TextPages[0], "Iglo Dill 50g"))
 	assert.Assert(t, strings.Contains(pdf.TextPages[1], "Pepsi Max Zero 6x1,5l"))
 	assert.Assert(t, strings.Contains(pdf.TextPages[2], "Vielen Dank für Ihren Einkauf bei REWE"))
-
-	for _, page := range pdf.TextPages {
-		fmt.Println(page)
-	}
 }
