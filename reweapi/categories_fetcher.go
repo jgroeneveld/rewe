@@ -1,10 +1,10 @@
 package reweapi
 
 import (
+	"fmt"
 	log "github.com/sirupsen/logrus"
 	"io"
 	"rewe"
-	"rewe/util/check"
 )
 
 type CategoriesFetcher struct {
@@ -25,7 +25,9 @@ func (c CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
 	if err != nil {
 		return nil, err
 	}
-	check.Equal(len(result.Products), 1, "expected exactly one product")
+	if len(result.Products) != 1 {
+		return nil, &ErrFuzzyResult{Products: result.Products}
+	}
 
 	return result.Products[0].Categories, nil
 }
@@ -36,4 +38,12 @@ type ReweClient interface {
 
 type SearchPageParser interface {
 	Parse(r io.Reader) (SearchPage, error)
+}
+
+type ErrFuzzyResult struct {
+	Products []Product
+}
+
+func (err ErrFuzzyResult) Error() string {
+	return fmt.Sprintf("Fuzzy Result. Expected one product got %d", len(err.Products))
 }
