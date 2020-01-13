@@ -33,33 +33,6 @@ The product names are unqiue enough for our use case.
     - [ ] Print result to stdout or to file depending on cli parameters
     - [ ] Make CategoriesByNames async for performance
 
-## Use cases when we have to go page by page
-
-- [ ] ScenarioA: Enter the link of a product and recieve the categories
-    - [ ] Provide cli `rewe categories --product-url https://shop.rewe.de/p/rewe-bio-apfelsaft-naturtrueb-1l/254615`
-    - [ ] Client that can fetch the html of a product
-    - [ ] Product Page parser providing the categories
-    - [ ] ProductPageService that implements the task
-
-- [ ] ScenarioB: CLI supports json output
-    - [ ] Provide cli output into file `--out file.json`
-    - [ ] Provide file writer that takes result  struct and write into file as json
-    - [ ] Existing CLI uses it
-
-- [ ] ScenarioC: Enter the the name of a product and receive the categories
-    - [ ] -> ScenarioA
-    - [ ] Provide cli `rewe categories --product "REWE Bio Apfelsaft naturtrüb 1l"`
-    - [ ] Client that fetches the search page
-    - [ ] Parser for the search page
-    - [ ] SearchPageService combining parser and client
-    - [ ] CategoriesByName that uses the SearchPageService and ProductPageService
-    
-- [ ] ScenarioD: Enter list of product names and return categories
-    - [ ] -> ScenarioC
-    - [ ] Provide cli `rewe categories --products ??` (stdin? filein? pipe?)
-    - [ ] CategoriesByNames that calls CategoriesByName for all
-    - [ ] Make CategoriesByNames async for performance
-    
 ## JSON Format
 
 ```json
