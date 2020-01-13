@@ -27,7 +27,7 @@ The product names are unqiue enough for our use case.
     - [X] Existing CLI uses it instead of stdout when `out` is specified
     
 - [ ] ScenarioC: Enter list of product names and return categories
-    - [ ] -> ScenarioC
+    - [ ] -> ScenarioA
     - [ ] Provide cli `rewe categories --products ??` (stdin? filein? pipe?)
     - [ ] CategoriesByNames that calls CategoriesByName for all and combines results
     - [ ] Print result to stdout or to file depending on cli parameters

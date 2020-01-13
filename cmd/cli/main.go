@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 	"io"
 	"os"
 	"rewe/reweapi"
+	"rewe/rewebill"
 )
 
 func main() {
@@ -64,6 +66,37 @@ func NewApp(output io.Writer) *cli.App {
 		},
 	}
 
+	pdfCommand := &cli.Command{
+		Name:  "pdf",
+		Usage: "read pdf",
+		Flags: []cli.Flag{
+
+		},
+		Action: func(c *cli.Context) error {
+			f, err := os.Open("fixtures/rechnung.pdf")
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+
+			pdf, err := rewebill.ReadPdf(f)
+			if err != nil {
+				return err
+			}
+
+			bill, err := rewebill.Extract(pdf)
+			if err != nil {
+				return err
+			}
+
+			for _, position := range bill.Positions {
+				fmt.Printf("%+v\n", position)
+			}
+
+			return nil
+		},
+	}
+
 	app := &cli.App{
 		Name:  "rewe",
 		Usage: "fetch categories for products of rewes online shop",
@@ -72,6 +105,7 @@ func NewApp(output io.Writer) *cli.App {
 		},
 		Commands: []*cli.Command{
 			categoriesCommand,
+			pdfCommand,
 		},
 	}
 	return app
