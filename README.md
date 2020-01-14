@@ -17,6 +17,18 @@ build/test # just run the tests
 build/cli # build the cli to bin/rewe
 ```
 
+## Linting
+
+Install `golangci-lint`
+
+To use in vscode
+```
+"go.lintTool": "golangci-lint",
+"go.lintFlags": [
+    "--fast"
+],
+```
+
 ## Method
 
 We can obtain the categories from the product pages. 
