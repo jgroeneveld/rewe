@@ -3,22 +3,25 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/errors"
 	"io"
 	"rewe"
+
+	"github.com/pkg/errors"
 )
 
-func writeCategories(w io.Writer, categories rewe.Categories, useJson bool) error {
-	if useJson {
-		return PrettyJsonWriter{}.Write(w, categories)
-	} else {
-		return SimpleCategoriesWriter{}.WriteCategories(w, categories)
+func writeCategories(w io.Writer, categories rewe.Categories, useJSON bool) error {
+	if useJSON {
+		return PrettyJSONWriter{}.Write(w, categories)
 	}
+
+	return SimpleCategoriesWriter{}.WriteCategories(w, categories)
 }
 
+// SimpleCategoriesWriter writes categories line by line as quoted strings
 type SimpleCategoriesWriter struct {
 }
 
+// WriteCategories writes categories line by line as quoted strings
 func (w SimpleCategoriesWriter) WriteCategories(writer io.Writer, categories rewe.Categories) error {
 	for _, c := range categories {
 		fmt.Fprintf(writer, "%q\n", c)
@@ -27,10 +30,12 @@ func (w SimpleCategoriesWriter) WriteCategories(writer io.Writer, categories rew
 	return nil
 }
 
-type PrettyJsonWriter struct {
+// PrettyJSONWriter writes the given data as pretty JSON
+type PrettyJSONWriter struct {
 }
 
-func (w PrettyJsonWriter) Write(writer io.Writer, data interface{}) error {
+// Write writes the given data as pretty JSON
+func (w PrettyJSONWriter) Write(writer io.Writer, data interface{}) error {
 	encoder := json.NewEncoder(writer)
 	encoder.SetIndent("", "  ")
 

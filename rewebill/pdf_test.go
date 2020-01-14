@@ -1,10 +1,11 @@
 package rewebill
 
 import (
-	"gotest.tools/assert"
 	"os"
 	"strings"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestReadPdf(t *testing.T) {

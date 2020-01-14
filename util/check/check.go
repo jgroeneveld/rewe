@@ -33,7 +33,15 @@ func Error(err error) {
 // Equal checks if two values are equal otherwise raises.
 func Equal(actual interface{}, expected interface{}, msgf ...interface{}) {
 	if expected != actual {
-		msg := fmt.Sprintf("%s: %s\n%s: %#v\n%s: %#v", msgIllegalState, titleOrMsgf("Not Equal", msgf), msgExpected, expected, msgActual, actual)
+		msg := fmt.Sprintf(
+			"%s: %s\n%s: %#v\n%s: %#v",
+			msgIllegalState,
+			titleOrMsgf("Not Equal", msgf),
+			msgExpected,
+			expected,
+			msgActual,
+			actual,
+		)
 		panic(msg)
 	}
 }

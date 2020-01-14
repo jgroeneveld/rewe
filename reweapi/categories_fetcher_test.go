@@ -1,11 +1,13 @@
 package reweapi
 
 import (
-	"gotest.tools/assert"
 	"io"
+
 	"rewe"
 	"strings"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestCategoriesFetcher(t *testing.T) {

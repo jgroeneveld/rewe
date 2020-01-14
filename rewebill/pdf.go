@@ -1,12 +1,13 @@
 package rewebill
 
 import (
-	"github.com/pkg/errors"
-	"github.com/unidoc/unipdf/v3/extractor"
-	"github.com/unidoc/unipdf/v3/model"
 	"io"
 	"os"
 	"strings"
+
+	"github.com/pkg/errors"
+	"github.com/unidoc/unipdf/v3/extractor"
+	"github.com/unidoc/unipdf/v3/model"
 )
 
 type Pdf struct {
@@ -16,9 +17,7 @@ type Pdf struct {
 func (pdf Pdf) AllLines() []string {
 	var lines []string
 	for _, page := range pdf.TextPages {
-		for _, line := range strings.Split(page, "\n") {
-			lines = append(lines, line)
-		}
+		lines = append(lines, strings.Split(page, "\n")...)
 	}
 
 	return lines

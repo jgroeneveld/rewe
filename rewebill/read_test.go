@@ -1,9 +1,10 @@
 package rewebill
 
 import (
-	"gotest.tools/assert"
 	"os"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestRead(t *testing.T) {

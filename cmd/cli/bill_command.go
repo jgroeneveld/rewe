@@ -2,10 +2,11 @@ package main
 
 import (
 	"errors"
-	"github.com/urfave/cli/v2"
 	"io"
 	"os"
 	"rewe/rewebill"
+
+	"github.com/urfave/cli/v2"
 )
 
 func billCommand(output io.Writer) *cli.Command {
@@ -13,13 +14,12 @@ func billCommand(output io.Writer) *cli.Command {
 		Name:      "bill",
 		Usage:     "read bill pdf",
 		ArgsUsage: "./Rechnung.pdf",
-		Flags: []cli.Flag{
-		},
+		Flags:     []cli.Flag{},
 		Action: func(c *cli.Context) error {
 			file := c.Args().First()
 			if file == "" {
 				_ = cli.ShowSubcommandHelp(c)
-				return errors.New("Missing file to read")
+				return errors.New("missing file to read")
 			}
 
 			f, err := os.Open(file)
@@ -33,7 +33,7 @@ func billCommand(output io.Writer) *cli.Command {
 				return err
 			}
 
-			err = PrettyJsonWriter{}.Write(output, bill)
+			err = PrettyJSONWriter{}.Write(output, bill)
 			if err != nil {
 				return err
 			}

@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/urfave/cli/v2"
 	"io"
 	"rewe/reweapi"
+
+	"github.com/urfave/cli/v2"
 )
 
-func categoriesCommand(output io.Writer, baseUrlFlag *cli.StringFlag) *cli.Command {
+func categoriesCommand(output io.Writer, baseURLFlag *cli.StringFlag) *cli.Command {
 	productFlag := &cli.StringFlag{
 		Name:     "product",
 		Required: true,
@@ -24,12 +25,12 @@ func categoriesCommand(output io.Writer, baseUrlFlag *cli.StringFlag) *cli.Comma
 			jsonFlag,
 		},
 		Action: func(c *cli.Context) error {
-			baseUrl := c.String(baseUrlFlag.Name)
-			useJson := c.Bool(jsonFlag.Name)
+			baseURL := c.String(baseURLFlag.Name)
+			useJSON := c.Bool(jsonFlag.Name)
 			product := c.String(productFlag.Name)
 
 			fetcher := reweapi.CategoriesFetcher{
-				ReweClient:       reweapi.ReweClientImpl{BaseUrl: baseUrl},
+				ReweClient:       reweapi.ReweClientImpl{BaseURL: baseURL},
 				SearchPageParser: reweapi.SearchPageParserImpl{},
 			}
 
@@ -38,7 +39,7 @@ func categoriesCommand(output io.Writer, baseUrlFlag *cli.StringFlag) *cli.Comma
 				return err
 			}
 
-			err = writeCategories(output, categories, useJson)
+			err = writeCategories(output, categories, useJSON)
 			if err != nil {
 				return err
 			}

@@ -3,32 +3,32 @@ package reweapi
 import (
 	"bytes"
 	"fmt"
-	"github.com/pkg/errors"
-	log "github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"net/http"
 	url2 "net/url"
+
+	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
 )
 
-const defaultBaseUrl = "https://shop.rewe.de"
+const defaultBaseURL = "https://shop.rewe.de"
 
 type ReweClientImpl struct {
-	BaseUrl string
+	BaseURL string
 }
 
 func (r ReweClientImpl) GetSearchPage(productName string) (io.Reader, error) {
 	logger := log.WithField("Caller", "ReweClient.GetSearchPage")
 
-	url := r.searchUrl(productName)
+	url := r.searchURL(productName)
 	logger.Infof("GET %q", url)
 
 	response, err := http.Get(url)
-	defer response.Body.Close()
-
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
+	defer response.Body.Close()
 
 	all, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -38,17 +38,17 @@ func (r ReweClientImpl) GetSearchPage(productName string) (io.Reader, error) {
 	return bytes.NewReader(all), nil
 }
 
-func (r ReweClientImpl) searchUrl(query string) string {
+func (r ReweClientImpl) searchURL(query string) string {
 	query = url2.QueryEscape(query)
 
-	url := fmt.Sprintf("%s/productList?search=%s", r.getBaseUrl(), query)
+	url := fmt.Sprintf("%s/productList?search=%s", r.getBaseURL(), query)
 	return url
 }
 
-func (r ReweClientImpl) getBaseUrl() string {
-	if r.BaseUrl == "" {
-		return defaultBaseUrl
+func (r ReweClientImpl) getBaseURL() string {
+	if r.BaseURL == "" {
+		return defaultBaseURL
 	}
 
-	return r.BaseUrl
+	return r.BaseURL
 }

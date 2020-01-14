@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/urfave/cli/v2"
 	"io"
 	"os"
+
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -17,9 +18,10 @@ func main() {
 	}
 }
 
+// NewApp creates the App
 func NewApp(output io.Writer) *cli.App {
 	// global flags
-	var baseUrlFlag = &cli.StringFlag{
+	var baseURLFlag = &cli.StringFlag{
 		Name: "base-url",
 	}
 
@@ -27,13 +29,12 @@ func NewApp(output io.Writer) *cli.App {
 		Name:  "rewe",
 		Usage: "fetch categories for products of rewes online shop",
 		Flags: []cli.Flag{
-			baseUrlFlag,
+			baseURLFlag,
 		},
 		Commands: []*cli.Command{
-			categoriesCommand(output, baseUrlFlag),
+			categoriesCommand(output, baseURLFlag),
 			billCommand(output),
 		},
 	}
 	return app
 }
-

@@ -1,8 +1,9 @@
 package rewebill
 
 import (
-	"gotest.tools/assert"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestExtract(t *testing.T) {
@@ -48,4 +49,4 @@ B = 7% 57,39 € 4,02 € 61,41 €
 Summe: 92,65 €
 `, `
 Vielen Dank für Ihren Einkauf bei REWE
-`,}}
+`}}

@@ -1,11 +1,12 @@
 package reweapi
 
 import (
-	"gotest.tools/assert"
 	"io"
 	"os"
 	"rewe"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestSearchPageParser(t *testing.T) {

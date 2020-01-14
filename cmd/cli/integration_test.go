@@ -2,13 +2,14 @@ package main
 
 import (
 	"bytes"
-	"gotest.tools/assert"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestCategoriesCommand(t *testing.T) {

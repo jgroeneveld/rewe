@@ -1,8 +1,9 @@
 package reweapi
 
 import (
-	"github.com/sirupsen/logrus"
 	"io/ioutil"
+
+	"github.com/sirupsen/logrus"
 )
 
 func init() {
