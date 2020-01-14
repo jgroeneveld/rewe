@@ -4,6 +4,19 @@ This app analyzes product names from the Rewe online catalog and fetches the cat
 
 This can be used to analyze in what categories you spend your money.
 
+## Development
+
+build scripts are located under `./build`
+
+```bash
+build/all # lint, test, build
+
+build/lint # just lint
+build/test # just run the tests
+
+build/cli # build the cli to bin/rewe
+```
+
 ## Method
 
 We can obtain the categories from the product pages. 
