@@ -9,19 +9,11 @@ import (
 )
 
 func writeCategories(w io.Writer, categories rewe.Categories, useJson bool) error {
-	var categoriesWriter CategoriesWriter
-
 	if useJson {
-		categoriesWriter = JsonCategoriesWriter{}
+		return PrettyJsonWriter{}.Write(w, categories)
 	} else {
-		categoriesWriter = SimpleCategoriesWriter{}
+		return SimpleCategoriesWriter{}.WriteCategories(w, categories)
 	}
-
-	return categoriesWriter.WriteCategories(w, categories)
-}
-
-type CategoriesWriter interface {
-	WriteCategories(io.Writer, rewe.Categories) error
 }
 
 type SimpleCategoriesWriter struct {
@@ -35,14 +27,14 @@ func (w SimpleCategoriesWriter) WriteCategories(writer io.Writer, categories rew
 	return nil
 }
 
-type JsonCategoriesWriter struct {
+type PrettyJsonWriter struct {
 }
 
-func (w JsonCategoriesWriter) WriteCategories(writer io.Writer, categories rewe.Categories) error {
+func (w PrettyJsonWriter) Write(writer io.Writer, data interface{}) error {
 	encoder := json.NewEncoder(writer)
 	encoder.SetIndent("", "  ")
 
-	err := encoder.Encode(categories)
+	err := encoder.Encode(data)
 	if err != nil {
 		return errors.Wrap(err, "can not write json")
 	}

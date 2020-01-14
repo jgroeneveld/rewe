@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"github.com/urfave/cli/v2"
 	"io"
 	"os"
@@ -34,8 +33,9 @@ func billCommand(output io.Writer) *cli.Command {
 				return err
 			}
 
-			for _, position := range bill.Positions {
-				fmt.Fprintf(output, "%+v\n", position)
+			err = PrettyJsonWriter{}.Write(output, bill)
+			if err != nil {
+				return err
 			}
 
 			return nil
