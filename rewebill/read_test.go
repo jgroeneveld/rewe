@@ -7,7 +7,7 @@ import (
 )
 
 func TestRead(t *testing.T) {
-	f, err := os.Open("../fixtures/rechnung.pdf")
+	f, err := os.Open("../testdata/rechnung.pdf")
 	assert.NilError(t, err)
 	defer f.Close()
 

@@ -41,7 +41,7 @@ func TestSearchPageParser(t *testing.T) {
 func openFixture(t *testing.T, fileName string) io.ReadCloser {
 	t.Helper()
 
-	file, err := os.Open("../fixtures/" + fileName)
+	file, err := os.Open("../testdata/" + fileName)
 	assert.NilError(t, err)
 
 	return file

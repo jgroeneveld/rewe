@@ -42,7 +42,7 @@ func newFixtureServer(t *testing.T, query string, fixture string) *httptest.Serv
 			t.Fatalf("unexpected request %q", r.URL.String())
 		}
 
-		f, err := os.Open("../../fixtures/" + fixture)
+		f, err := os.Open("../../testdata/" + fixture)
 		defer f.Close()
 		assert.NilError(t, err)
 
