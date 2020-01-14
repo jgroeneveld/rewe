@@ -18,6 +18,14 @@ func TestExtract(t *testing.T) {
 		Sum:    Cents(79),
 		Tax:    "B",
 	}, bill.Positions[1])
+
+	assert.Equal(t, Position{
+		Text:   "Wiltmann Bio-Geflügel-Lyoner 80g",
+		Amount: 2,
+		Price:  Cents(169),
+		Sum:    Cents(338),
+		Tax:    "B",
+	}, bill.Positions[2])
 }
 
 var pdfFixture = Pdf{TextPages: []string{`
