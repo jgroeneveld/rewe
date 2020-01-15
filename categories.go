@@ -1,8 +1,8 @@
 package rewe
 
 type CategoryInfo struct {
-	Product    string
-	Categories []string
+	Product    string   `json:"product"`
+	Categories []string `json:"categories"`
 }
 
 type CategoryFetcher interface {

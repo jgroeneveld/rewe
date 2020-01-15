@@ -29,8 +29,8 @@ func TestCategoriesCommand(t *testing.T) {
 	assert.NilError(t, err)
 
 	assert.Equal(t, output.String(), `{
-  "Product": "Landliebe Butter 250g",
-  "Categories": [
+  "product": "Landliebe Butter 250g",
+  "categories": [
     "/c/frische-kuehlung",
     "/c/frische-kuehlung-eier-fett-molkereiprodukte",
     "/c/frische-kuehlung-eier-fett-molkereiprodukte-margarine-butter-fett",

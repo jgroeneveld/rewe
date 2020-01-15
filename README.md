@@ -6,7 +6,14 @@ This can be used to analyze in what categories you spend your money.
 
 ## Development
 
-build scripts are located under `./build`
+### Prerequisites
+
+- Install `golangci-lint` for linting. There is a `.golangci.yml` file for configuration.
+- run `scripts/install-pre-commit` to install *build/all* as pre-commit hook.
+
+### Building
+
+Just use the go tools or the convenient build scripts located under `./build`
 
 ```bash
 build/all # lint, test, build
@@ -14,14 +21,11 @@ build/all # lint, test, build
 build/lint # just lint
 build/test # just run the tests
 
-build/cli # build the cli to bin/rewe
+build/cli # build the cli to ./bin/rewe
 ```
 
-## Linting
+### vscode Linting
 
-Install `golangci-lint`
-
-To use in vscode
 ```
 "go.lintTool": "golangci-lint",
 "go.lintFlags": [
@@ -35,6 +39,17 @@ We can obtain the categories from the product pages.
 The categories are a tree. 
 To obtain the product page we need to use the search with the name of the product.
 The product names are unqiue enough for our use case.
+
+
+## Resulting JSON Format
+
+```json
+{
+  "product": "REWE Bio Apfelsaft naturtrüb 1l",
+  "categories": ["Getränke", "Soft Drinks", "Fruchtsäfte & Nektare", "Äpfel"]
+}
+```
+
 
 ## Use cases when we can use the json data in search only
 
@@ -57,13 +72,3 @@ The product names are unqiue enough for our use case.
     - [ ] CategoriesByNames that calls CategoriesByName for all and combines results
     - [ ] Print result to stdout or to file depending on cli parameters
     - [ ] Make CategoriesByNames async for performance
-
-## JSON Format
-
-```json
-{
-  "name": "REWE Bio Apfelsaft naturtrüb 1l",
-  "url": "https://shop.cli.de/p/cli-bio-apfelsaft-naturtrueb-1l/254615",
-  "categories": ["Getränke", "Soft Drinks", "Fruchtsäfte & Nektare", "Äpfel"]
-}
-```
