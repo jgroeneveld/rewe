@@ -29,7 +29,7 @@ func categoriesCommand(output io.Writer, baseURLFlag *cli.StringFlag) *cli.Comma
 			useJSON := c.Bool(jsonFlag.Name)
 			product := c.String(productFlag.Name)
 
-			fetcher := reweapi.CategoriesFetcher{
+			fetcher := reweapi.CategoryFetcher{
 				ReweClient:       reweapi.ReweClientImpl{BaseURL: baseURL},
 				SearchPageParser: reweapi.SearchPageParserImpl{},
 			}
@@ -39,7 +39,7 @@ func categoriesCommand(output io.Writer, baseURLFlag *cli.StringFlag) *cli.Comma
 				return err
 			}
 
-			err = writeCategories(output, categories, useJSON)
+			err = writeCategoryInfo(output, categories, useJSON)
 			if err != nil {
 				return err
 			}

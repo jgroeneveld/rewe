@@ -10,30 +10,31 @@ import (
 	"gotest.tools/assert"
 )
 
-func TestCategoriesFetcher(t *testing.T) {
+func TestCategoryFetcher(t *testing.T) {
 	t.Run("returns the parse result", func(t *testing.T) {
-		parseResult := SearchPage{[]Product{{"Apfelsaft", rewe.Categories{"saft"}}}}
-		fetcher := mockedCategoriesFetcher(t, parseResult)
+		saft := rewe.CategoryInfo{Categories: []string{"saft"}}
+		parseResult := SearchPage{[]rewe.CategoryInfo{saft}}
+		fetcher := mockedCategoryFetcher(t, parseResult)
 
 		categories, err := fetcher.Fetch("Apfelsaft")
 		assert.NilError(t, err)
 
-		assert.DeepEqual(t, categories, parseResult.Products[0].Categories)
+		assert.DeepEqual(t, categories, parseResult.Products[0])
 	})
 
 	t.Run("returns an error if there are more than 1 products", func(t *testing.T) {
-		parseResult := SearchPage{Products: []Product{
-			{"Apfelsaft", rewe.Categories{"saft"}},
-			{"Apfelsaft Naturtrüb", rewe.Categories{"saft"}},
+		parseResult := SearchPage{Products: []rewe.CategoryInfo{
+			{"Apfelsaft", []string{"saft"}},
+			{"Apfelsaft Naturtrüb", []string{"saft"}},
 		}}
-		fetcher := mockedCategoriesFetcher(t, parseResult)
+		fetcher := mockedCategoryFetcher(t, parseResult)
 
 		_, err := fetcher.Fetch("Apfelsaft")
 		assert.ErrorType(t, err, &ErrFuzzyResult{})
 	})
 }
 
-func mockedCategoriesFetcher(t *testing.T, parseResult SearchPage) CategoriesFetcher {
+func mockedCategoryFetcher(t *testing.T, parseResult SearchPage) CategoryFetcher {
 	getSearchPageResult := strings.NewReader("Page Content")
 	mockClient := mockReweClient{t, map[string]io.Reader{
 		"Apfelsaft": getSearchPageResult,
@@ -43,5 +44,5 @@ func mockedCategoriesFetcher(t *testing.T, parseResult SearchPage) CategoriesFet
 		getSearchPageResult: parseResult,
 	}}
 
-	return CategoriesFetcher{mockClient, mockParser}
+	return CategoryFetcher{mockClient, mockParser}
 }

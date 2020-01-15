@@ -1,7 +1,10 @@
 package rewe
 
-type Categories []string
+type CategoryInfo struct {
+	Product    string
+	Categories []string
+}
 
-type CategoriesFetcher interface {
-	Fetch(productName string) (Categories, error)
+type CategoryFetcher interface {
+	Fetch(productName string) (CategoryInfo, error)
 }

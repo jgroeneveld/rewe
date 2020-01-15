@@ -8,29 +8,29 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type CategoriesFetcher struct {
+type CategoryFetcher struct {
 	ReweClient       ReweClient
 	SearchPageParser SearchPageParser
 }
 
-func (c CategoriesFetcher) Fetch(productName string) (rewe.Categories, error) {
+func (c CategoryFetcher) Fetch(productName string) (rewe.CategoryInfo, error) {
 	logger := log.WithField("Caller", "CategoriesFetcher.Fetch")
 	logger.Infof("Fetching categories %q", productName)
 
 	reader, err := c.ReweClient.GetSearchPage(productName)
 	if err != nil {
-		return nil, err
+		return rewe.CategoryInfo{}, err
 	}
 
 	result, err := c.SearchPageParser.Parse(reader)
 	if err != nil {
-		return nil, err
+		return rewe.CategoryInfo{}, err
 	}
 	if len(result.Products) != 1 {
-		return nil, &ErrFuzzyResult{Products: result.Products}
+		return rewe.CategoryInfo{}, &ErrFuzzyResult{Products: result.Products}
 	}
 
-	return result.Products[0].Categories, nil
+	return result.Products[0], nil
 }
 
 type ReweClient interface {
@@ -42,7 +42,7 @@ type SearchPageParser interface {
 }
 
 type ErrFuzzyResult struct {
-	Products []Product
+	Products []rewe.CategoryInfo
 }
 
 func (err ErrFuzzyResult) Error() string {

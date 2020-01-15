@@ -9,21 +9,21 @@ import (
 	"github.com/pkg/errors"
 )
 
-func writeCategories(w io.Writer, categories rewe.Categories, useJSON bool) error {
+func writeCategoryInfo(w io.Writer, info rewe.CategoryInfo, useJSON bool) error {
 	if useJSON {
-		return PrettyJSONWriter{}.Write(w, categories)
+		return PrettyJSONWriter{}.Write(w, info)
 	}
 
-	return SimpleCategoriesWriter{}.WriteCategories(w, categories)
+	return SimpleCategoryInfoWriter{}.WriteCategoryInfo(w, info)
 }
 
-// SimpleCategoriesWriter writes categories line by line as quoted strings
-type SimpleCategoriesWriter struct {
+// SimpleCategoryInfoWriter writes categories line by line as quoted strings
+type SimpleCategoryInfoWriter struct {
 }
 
-// WriteCategories writes categories line by line as quoted strings
-func (w SimpleCategoriesWriter) WriteCategories(writer io.Writer, categories rewe.Categories) error {
-	for _, c := range categories {
+// WriteCategoryInfo writes categories line by line as quoted strings
+func (w SimpleCategoryInfoWriter) WriteCategoryInfo(writer io.Writer, info rewe.CategoryInfo) error {
+	for _, c := range info.Categories {
 		fmt.Fprintf(writer, "%q\n", c)
 	}
 

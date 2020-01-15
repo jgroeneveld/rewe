@@ -11,12 +11,7 @@ import (
 )
 
 type SearchPage struct {
-	Products []Product
-}
-
-type Product struct {
-	Name       string
-	Categories rewe.Categories
+	Products []rewe.CategoryInfo
 }
 
 type SearchPageParserImpl struct{}
@@ -33,7 +28,7 @@ func (p SearchPageParserImpl) Parse(r io.Reader) (SearchPage, error) {
 	}
 
 	return SearchPage{
-		Products: parsedJSON.Products(),
+		Products: parsedJSON.AsModel(),
 	}, nil
 }
 
@@ -75,13 +70,13 @@ type searchPageJSON struct {
 	} `json:"_embedded"`
 }
 
-func (j searchPageJSON) Products() []Product {
-	products := []Product{}
+func (j searchPageJSON) AsModel() []rewe.CategoryInfo {
+	infos := []rewe.CategoryInfo{}
 
 	for _, p := range j.Embedded.Products {
-		products = append(products, p.AsModel())
+		infos = append(infos, p.AsModel())
 	}
-	return products
+	return infos
 }
 
 type productJSON struct {
@@ -91,21 +86,17 @@ type productJSON struct {
 	} `json:"_embedded"`
 }
 
-func (j productJSON) AsModel() Product {
-	return Product{
-		Name:       j.ProductName,
-		Categories: j.CategoriesAsModels(),
-	}
-}
-
-func (j productJSON) CategoriesAsModels() rewe.Categories {
-	categories := rewe.Categories{}
+func (j productJSON) AsModel() rewe.CategoryInfo {
+	var categories []string
 
 	for _, c := range j.Embedded.Categories {
 		categories = append(categories, c.Links.Products.Href)
 	}
 
-	return categories
+	return rewe.CategoryInfo{
+		Product:    j.ProductName,
+		Categories: categories,
+	}
 }
 
 type categoryJSON struct {

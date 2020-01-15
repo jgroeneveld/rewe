@@ -28,12 +28,15 @@ func TestCategoriesCommand(t *testing.T) {
 	})
 	assert.NilError(t, err)
 
-	assert.Equal(t, output.String(), `[
-  "/c/frische-kuehlung",
-  "/c/frische-kuehlung-eier-fett-molkereiprodukte",
-  "/c/frische-kuehlung-eier-fett-molkereiprodukte-margarine-butter-fett",
-  "/c/frische-kuehlung-eier-fett-molkereiprodukte-margarine-butter-fett-butter"
-]
+	assert.Equal(t, output.String(), `{
+  "Product": "Landliebe Butter 250g",
+  "Categories": [
+    "/c/frische-kuehlung",
+    "/c/frische-kuehlung-eier-fett-molkereiprodukte",
+    "/c/frische-kuehlung-eier-fett-molkereiprodukte-margarine-butter-fett",
+    "/c/frische-kuehlung-eier-fett-molkereiprodukte-margarine-butter-fett-butter"
+  ]
+}
 `)
 }
 
