@@ -24,8 +24,8 @@ func TestCategoryFetcher(t *testing.T) {
 
 	t.Run("returns an error if there are more than 1 products", func(t *testing.T) {
 		parseResult := SearchPage{Products: []rewe.CategoryInfo{
-			{"Apfelsaft", []string{"saft"}},
-			{"Apfelsaft Naturtrüb", []string{"saft"}},
+			{Product: "Apfelsaft", Categories: []string{"saft"}},
+			{Product: "Apfelsaft Naturtrüb", Categories: []string{"saft"}},
 		}}
 		fetcher := mockedCategoryFetcher(t, parseResult)
 
