@@ -2,10 +2,11 @@ package reweapi
 
 import (
 	"fmt"
-	"io"
-	"rewe"
 
 	log "github.com/sirupsen/logrus"
+
+	"io"
+	"rewe"
 )
 
 type CategoryFetcher struct {

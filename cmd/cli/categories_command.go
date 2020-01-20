@@ -2,9 +2,10 @@ package main
 
 import (
 	"io"
-	"rewe/reweapi"
 
 	"github.com/urfave/cli/v2"
+
+	"rewe/reweapi"
 )
 
 func categoriesCommand(output io.Writer, baseURLFlag *cli.StringFlag) *cli.Command {

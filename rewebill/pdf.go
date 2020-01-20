@@ -68,7 +68,7 @@ func disableStdout() func() {
 	os.Stdout = w
 
 	return func() {
-		w.Close()
+		_ = w.Close()
 		os.Stdout = oldStdout
 	}
 }
