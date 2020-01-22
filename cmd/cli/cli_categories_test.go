@@ -2,17 +2,12 @@ package main
 
 import (
 	"bytes"
-	"io"
-	"net/http"
-	"net/http/httptest"
-	"os"
-	"strings"
 	"testing"
 
 	"gotest.tools/assert"
 )
 
-func TestCategoriesCommand(t *testing.T) {
+func TestCLI_Categories(t *testing.T) {
 	server := newFixtureServer(t, "Butter", "search_butter.html")
 	defer server.Close()
 
@@ -40,17 +35,3 @@ func TestCategoriesCommand(t *testing.T) {
 `)
 }
 
-func newFixtureServer(t *testing.T, query string, fixture string) *httptest.Server {
-	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !strings.Contains(r.URL.String(), query) {
-			t.Fatalf("unexpected request %q", r.URL.String())
-		}
-
-		f, err := os.Open("../../testdata/" + fixture)
-		defer f.Close()
-		assert.NilError(t, err)
-
-		_, err = io.Copy(w, f)
-		assert.NilError(t, err)
-	}))
-}
