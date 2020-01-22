@@ -9,9 +9,9 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func billCommand(output io.Writer) *cli.Command {
+func readBillCommand(output io.Writer) *cli.Command {
 	return &cli.Command{
-		Name:      "bill",
+		Name:      "read-bill",
 		Usage:     "read bill pdf",
 		ArgsUsage: "./Rechnung.pdf",
 		Flags:     []cli.Flag{},

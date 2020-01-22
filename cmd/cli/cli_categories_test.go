@@ -34,4 +34,3 @@ func TestCLI_Categories(t *testing.T) {
 }
 `)
 }
-

@@ -33,7 +33,7 @@ func NewApp(output io.Writer) *cli.App {
 		},
 		Commands: []*cli.Command{
 			categoriesCommand(output, baseURLFlag),
-			billCommand(output),
+			readBillCommand(output),
 		},
 	}
 	return app

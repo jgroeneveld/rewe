@@ -1,7 +1,6 @@
 package main
 
 import (
-	"gotest.tools/assert"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -9,6 +8,8 @@ import (
 	"os"
 	"strings"
 	"testing"
+
+	"gotest.tools/assert"
 
 	"github.com/sirupsen/logrus"
 )
