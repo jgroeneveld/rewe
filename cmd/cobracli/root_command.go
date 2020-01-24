@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/spf13/cobra"
 	"io"
+
+	"github.com/spf13/cobra"
 )
 
 func rootCommand(output io.Writer) *cobra.Command {
@@ -11,9 +12,9 @@ func rootCommand(output io.Writer) *cobra.Command {
 		Short: "fetch categories for products of rewes online shop",
 	}
 
+	cmd.AddCommand(billCommand(output))
 	cmd.AddCommand(readBillCommand(output))
-	cmd.AddCommand(categoriesCommand(output))
+	cmd.AddCommand(fetchCategoriesCommand(output))
 
 	return cmd
 }
-

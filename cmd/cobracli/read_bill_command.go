@@ -2,10 +2,11 @@ package main
 
 import (
 	"errors"
-	"github.com/spf13/cobra"
 	"io"
 	"os"
 	"rewe/rewebill"
+
+	"github.com/spf13/cobra"
 )
 
 func readBillCommand(output io.Writer) *cobra.Command {
@@ -40,4 +41,3 @@ func readBillCommand(output io.Writer) *cobra.Command {
 
 	return cmd
 }
-

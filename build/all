@@ -1,12 +1,12 @@
- #!/bin/sh
+#!/bin/sh
 
- set -e
-
-echo "> Linting"
-./build/lint
+set -e
 
 echo "\n\n> Testing"
 ./build/test
+
+echo "> Linting"
+./build/lint
 
 echo "\n\n> Building cli"
 ./build/cli

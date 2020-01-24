@@ -2,37 +2,44 @@ package main
 
 import (
 	"errors"
-	"github.com/spf13/cobra"
 	"io"
+	"os"
+	"rewe"
 	"rewe/reweapi"
+	"rewe/rewebill"
+
+	"github.com/spf13/cobra"
 )
 
-func categoriesCommand(output io.Writer) *cobra.Command {
+func billCommand(output io.Writer) *cobra.Command {
 	var baseURL string
 	var useJSON bool
 
-	cmd := &cobra.Command{
-		Use:   "categories [product-query]",
-		Short: "fetch categories for a product",
-		Args:  cobra.MaximumNArgs(1),
+	var cmd = &cobra.Command{
+		Use:   "bill",
+		Short: "fetch categories for all products in the bill",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) != 1 {
-				return errors.New("missing product")
+				return errors.New("missing file to read")
 			}
 
-			product := args[0]
+			f, err := os.Open(args[0])
+			if err != nil {
+				return err
+			}
+			defer f.Close()
 
 			fetcher := reweapi.CategoryFetcher{
 				ReweClient:       reweapi.ReweClientImpl{BaseURL: baseURL},
 				SearchPageParser: reweapi.SearchPageParserImpl{},
 			}
 
-			categories, err := fetcher.Fetch(product)
+			categories, err := rewe.FetchCategoriesForBill(f, rewebill.Reader, fetcher)
 			if err != nil {
 				return err
 			}
 
-			err = writeCategoryInfo(output, categories, useJSON)
+			err = writeCategoryInfos(output, categories, useJSON)
 			if err != nil {
 				return err
 			}
@@ -46,4 +53,3 @@ func categoriesCommand(output io.Writer) *cobra.Command {
 
 	return cmd
 }
-

@@ -2,6 +2,7 @@ package rewebill
 
 import (
 	"os"
+	"rewe"
 	"testing"
 
 	"gotest.tools/assert"
@@ -17,11 +18,11 @@ func TestRead(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, 50, len(bill.Positions))
 
-	assert.Equal(t, Position{
+	assert.Equal(t, rewe.Position{
 		Text:   "REWE Beste Wahl Alaska-Seelachsfilets 400g",
 		Amount: 1,
-		Price:  Cents(299),
-		Sum:    Cents(299),
+		Price:  rewe.Cents(299),
+		Sum:    rewe.Cents(299),
 		Tax:    "B",
 	}, bill.Positions[0])
 }

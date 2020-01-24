@@ -9,6 +9,21 @@ import (
 	"github.com/pkg/errors"
 )
 
+func writeCategoryInfos(w io.Writer, infos []rewe.CategoryInfo, useJSON bool) error {
+	if useJSON {
+		return PrettyJSONWriter{}.Write(w, infos)
+	}
+
+	for _, info := range infos {
+		err := SimpleCategoryInfoWriter{}.WriteCategoryInfo(w, info)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func writeCategoryInfo(w io.Writer, info rewe.CategoryInfo, useJSON bool) error {
 	if useJSON {
 		return PrettyJSONWriter{}.Write(w, info)

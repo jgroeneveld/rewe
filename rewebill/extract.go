@@ -2,27 +2,14 @@ package rewebill
 
 import (
 	"regexp"
+	"rewe"
 	"rewe/util/check"
 	"strconv"
 	"strings"
 )
 
-type Bill struct {
-	Positions []Position
-}
-
-type Position struct {
-	Text   string
-	Amount int
-	Price  Cents
-	Sum    Cents
-	Tax    string
-}
-
-type Cents int
-
-func Extract(pdf Pdf) (Bill, error) {
-	var positions []Position
+func Extract(pdf Pdf) (rewe.Bill, error) {
+	var positions []rewe.Position
 
 	for _, line := range pdf.AllLines() {
 		position, ok := isPositionLine(line)
@@ -31,18 +18,18 @@ func Extract(pdf Pdf) (Bill, error) {
 		}
 	}
 
-	return Bill{Positions: positions}, nil
+	return rewe.Bill{Positions: positions}, nil
 }
 
-func isPositionLine(line string) (Position, bool) {
+func isPositionLine(line string) (rewe.Position, bool) {
 	subMatches := positionLineRegex.FindStringSubmatch(line)
 	if len(subMatches) == 0 {
-		return Position{}, false
+		return rewe.Position{}, false
 	}
 
 	check.Equal(len(subMatches), 6, "number of matches does not match regex")
 
-	return Position{
+	return rewe.Position{
 		Text:   subMatches[1],
 		Amount: asInt(subMatches[2]),
 		Price:  asCents(subMatches[3]),
@@ -51,9 +38,9 @@ func isPositionLine(line string) (Position, bool) {
 	}, true
 }
 
-func asCents(s string) Cents {
+func asCents(s string) rewe.Cents {
 	s = strings.ReplaceAll(strings.ReplaceAll(s, " €", ""), ",", "")
-	return Cents(asInt(s))
+	return rewe.Cents(asInt(s))
 }
 
 func asInt(s string) int {
