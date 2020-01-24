@@ -15,9 +15,9 @@ func TestFetchCategoriesCommand(t *testing.T) {
 
 	cmd := rootCommand(output)
 	cmd.SetArgs([]string{
-		"--base-url", server.URL,
 		"fetch-categories",
 		"Butter",
+		"--base-url", server.URL,
 		"--json",
 	})
 
