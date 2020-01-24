@@ -6,23 +6,20 @@ import (
 	"os"
 	"rewe/rewebill"
 
-	"github.com/urfave/cli/v2"
+	"github.com/spf13/cobra"
 )
 
-func readBillCommand(output io.Writer) *cli.Command {
-	return &cli.Command{
-		Name:      "read-bill",
-		Usage:     "read bill pdf",
-		ArgsUsage: "./Rechnung.pdf",
-		Flags:     []cli.Flag{},
-		Action: func(c *cli.Context) error {
-			file := c.Args().First()
-			if file == "" {
-				_ = cli.ShowSubcommandHelp(c)
+func readBillCommand(output io.Writer) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "read-bill [rechnung.pdf]",
+		Short: "read bill pdf",
+		Args:  cobra.MaximumNArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if len(args) != 1 {
 				return errors.New("missing file to read")
 			}
 
-			f, err := os.Open(file)
+			f, err := os.Open(args[0])
 			if err != nil {
 				return err
 			}
@@ -41,4 +38,6 @@ func readBillCommand(output io.Writer) *cli.Command {
 			return nil
 		},
 	}
+
+	return cmd
 }
