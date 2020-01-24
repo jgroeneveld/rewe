@@ -2,47 +2,18 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"rewe"
 
 	"github.com/pkg/errors"
 )
 
-func writeCategoryInfos(w io.Writer, infos []rewe.CategoryInfo, useJSON bool) error {
-	if useJSON {
-		return PrettyJSONWriter{}.Write(w, infos)
-	}
-
-	for _, info := range infos {
-		err := SimpleCategoryInfoWriter{}.WriteCategoryInfo(w, info)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
+func writeFullProductInfos(w io.Writer, infos []rewe.FullProductInfo) error {
+	return PrettyJSONWriter{}.Write(w, infos)
 }
 
-func writeCategoryInfo(w io.Writer, info rewe.CategoryInfo, useJSON bool) error {
-	if useJSON {
-		return PrettyJSONWriter{}.Write(w, info)
-	}
-
-	return SimpleCategoryInfoWriter{}.WriteCategoryInfo(w, info)
-}
-
-// SimpleCategoryInfoWriter writes categories line by line as quoted strings
-type SimpleCategoryInfoWriter struct {
-}
-
-// WriteCategoryInfo writes categories line by line as quoted strings
-func (w SimpleCategoryInfoWriter) WriteCategoryInfo(writer io.Writer, info rewe.CategoryInfo) error {
-	for _, c := range info.Categories {
-		fmt.Fprintf(writer, "%q\n", c)
-	}
-
-	return nil
+func writeCategoryInfo(w io.Writer, info rewe.CategoryInfo) error {
+	return PrettyJSONWriter{}.Write(w, info)
 }
 
 // PrettyJSONWriter writes the given data as pretty JSON

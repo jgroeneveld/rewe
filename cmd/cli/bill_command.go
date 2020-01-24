@@ -13,7 +13,6 @@ import (
 
 func billCommand(output io.Writer) *cobra.Command {
 	var baseURL string
-	var useJSON bool
 
 	var cmd = &cobra.Command{
 		Use:   "bill",
@@ -34,12 +33,12 @@ func billCommand(output io.Writer) *cobra.Command {
 				SearchPageParser: reweapi.SearchPageParserImpl{},
 			}
 
-			categories, err := rewe.FetchCategoriesForBill(f, rewebill.Reader, fetcher)
+			fullProductInfos, err := rewe.FetchCategoriesForBill(f, rewebill.Reader, fetcher)
 			if err != nil {
 				return err
 			}
 
-			err = writeCategoryInfos(output, categories, useJSON)
+			err = writeFullProductInfos(output, fullProductInfos)
 			if err != nil {
 				return err
 			}
@@ -49,7 +48,6 @@ func billCommand(output io.Writer) *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&baseURL, "base-url", "", "set to overwrite the base-url of the rewe site")
-	cmd.Flags().BoolVar(&useJSON, "json", false, "use json as output")
 
 	return cmd
 }

@@ -10,7 +10,6 @@ import (
 
 func fetchCategoriesCommand(output io.Writer) *cobra.Command {
 	var baseURL string
-	var useJSON bool
 
 	cmd := &cobra.Command{
 		Use:   "fetch-categories [product-query]",
@@ -33,7 +32,7 @@ func fetchCategoriesCommand(output io.Writer) *cobra.Command {
 				return err
 			}
 
-			err = writeCategoryInfo(output, categories, useJSON)
+			err = writeCategoryInfo(output, categories)
 			if err != nil {
 				return err
 			}
@@ -43,7 +42,6 @@ func fetchCategoriesCommand(output io.Writer) *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&baseURL, "base-url", "", "set to overwrite the base-url of the rewe site")
-	cmd.Flags().BoolVar(&useJSON, "json", false, "use json as output")
 
 	return cmd
 }

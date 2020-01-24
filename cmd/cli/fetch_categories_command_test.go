@@ -18,7 +18,6 @@ func TestFetchCategoriesCommand(t *testing.T) {
 		"fetch-categories",
 		"Butter",
 		"--base-url", server.URL,
-		"--json",
 	})
 
 	err := cmd.Execute()

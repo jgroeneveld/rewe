@@ -8,9 +8,9 @@ This can be used to analyze in what categories you spend your money.
 
 ```shell
 bin/rewe [command] --help # prints help
-bin/rewe bill ./Rechnung.pdf --json # identify products and their categories. See below for individual steps.
+bin/rewe bill ./Rechnung.pdf # identify products and their categories. See below for individual steps.
 bin/rewe read-bill ./Rechnung.pdf # Parses the PDF and identifies all products and their costs
-bin/rewe fetch-categories "Apfelsaft" --json # Looks for the Apfelsaft product on the rewe websites and extracts the categories printing them in json
+bin/rewe fetch-categories "Apfelsaft" # Looks for the Apfelsaft product on the rewe websites and extracts the categories printing them in json
 ```
 
 ## Development
