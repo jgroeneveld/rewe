@@ -7,7 +7,7 @@ import (
 	"gotest.tools/assert"
 )
 
-func TestCLI_Categories(t *testing.T) {
+func TestFetchCategoriesCommand(t *testing.T) {
 	server := newFixtureServer(t, "Butter", "search_butter.html")
 	defer server.Close()
 
