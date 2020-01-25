@@ -22,7 +22,7 @@ func (r ReweClientImpl) GetSearchPage(productName string) (io.Reader, error) {
 	logger := log.WithField("Caller", "ReweClient.GetSearchPage")
 
 	url := r.searchURL(productName)
-	logger.Infof("GET %q", url)
+	logger.Debugf("GET %q", url)
 
 	response, err := http.Get(url)
 	if err != nil {

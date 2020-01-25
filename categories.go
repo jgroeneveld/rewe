@@ -5,6 +5,7 @@ type CategoryInfo struct {
 	Categories []string `json:"categories"`
 }
 
+//go:generate mockgen -source=categories.go -package=rewe -destination mock_categories_test.go
 type CategoryFetcher interface {
 	Fetch(productName string) (CategoryInfo, error)
 }

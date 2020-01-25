@@ -16,6 +16,7 @@ type Position struct {
 
 type Cents int
 
+//go:generate mockgen -source=bill.go -package=rewe -destination mock_bill_test.go
 type BillReader interface {
 	Read(io.ReadSeeker) (Bill, error)
 }

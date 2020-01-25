@@ -2,9 +2,10 @@ package main
 
 import (
 	"testing"
+
+	"gotest.tools/skip"
 )
 
 func TestBillCommand(t *testing.T) {
-	//assert.Equal(t, true, false) // TODO
+	skip.If(t, true, "to do")
 }
-

@@ -1,7 +1,7 @@
 package reweapi
 
 import (
-	"fmt"
+	"errors"
 
 	log "github.com/sirupsen/logrus"
 
@@ -27,8 +27,14 @@ func (c CategoryFetcher) Fetch(productName string) (rewe.CategoryInfo, error) {
 	if err != nil {
 		return rewe.CategoryInfo{}, err
 	}
-	if len(result.Products) != 1 {
-		return rewe.CategoryInfo{}, &ErrFuzzyResult{Products: result.Products}
+
+	if len(result.Products) < 1 {
+		logger.Errorf("no products found for %q", productName)
+		return rewe.CategoryInfo{}, ErrNoProductsFound
+	}
+
+	if len(result.Products) > 1 {
+		logger.Warnf("Got more than 1 product for %q - choosing first %q", productName, result.Products[0].Product)
 	}
 
 	return result.Products[0], nil
@@ -42,10 +48,4 @@ type SearchPageParser interface {
 	Parse(r io.Reader) (SearchPage, error)
 }
 
-type ErrFuzzyResult struct {
-	Products []rewe.CategoryInfo
-}
-
-func (err ErrFuzzyResult) Error() string {
-	return fmt.Sprintf("Fuzzy Result. Expected one product got %d", len(err.Products))
-}
+var ErrNoProductsFound = errors.New("no products found")

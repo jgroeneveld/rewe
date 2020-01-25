@@ -2,6 +2,8 @@ package rewe
 
 import (
 	"io"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type FullProductInfo struct {
@@ -20,11 +22,13 @@ func FetchCategoriesForBill(rs io.ReadSeeker, br BillReader, fetcher CategoryFet
 	}
 
 	var infos []FullProductInfo
-	for _, position := range bill.Positions[0:5] {
+	for _, position := range bill.Positions {
 		info, err := fetcher.Fetch(position.Text)
 		if err != nil {
-			return nil, err
+			log.Errorf("got err %q - ignoring position %q", err, position.Text)
+			continue
 		}
+
 		infos = append(infos, FullProductInfo{
 			Product:    info.Product,
 			Categories: info.Categories,

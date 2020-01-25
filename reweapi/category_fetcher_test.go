@@ -22,15 +22,25 @@ func TestCategoryFetcher(t *testing.T) {
 		assert.DeepEqual(t, categories, parseResult.Products[0])
 	})
 
-	t.Run("returns an error if there are more than 1 products", func(t *testing.T) {
+	t.Run("returns first product if there are more than 1 products", func(t *testing.T) {
 		parseResult := SearchPage{Products: []rewe.CategoryInfo{
 			{Product: "Apfelsaft", Categories: []string{"saft"}},
 			{Product: "Apfelsaft Naturtrüb", Categories: []string{"saft"}},
 		}}
 		fetcher := mockedCategoryFetcher(t, parseResult)
 
+		categories, err := fetcher.Fetch("Apfelsaft")
+		assert.NilError(t, err)
+
+		assert.DeepEqual(t, categories, parseResult.Products[0])
+	})
+
+	t.Run("returns error if there are no products", func(t *testing.T) {
+		parseResult := SearchPage{Products: []rewe.CategoryInfo{}}
+		fetcher := mockedCategoryFetcher(t, parseResult)
+
 		_, err := fetcher.Fetch("Apfelsaft")
-		assert.ErrorType(t, err, &ErrFuzzyResult{})
+		assert.Equal(t, err, ErrNoProductsFound)
 	})
 }
 
