@@ -9,25 +9,34 @@ import (
 
 func TestExtract(t *testing.T) {
 	bill, err := Extract(pdfFixture)
-
 	assert.NilError(t, err)
-	assert.Equal(t, 7, len(bill.Positions))
 
-	assert.Equal(t, rewe.Position{
-		Text:   "REWE Bio Maiswaffeln 115g",
-		Amount: 1,
-		Price:  rewe.Cents(79),
-		Sum:    rewe.Cents(79),
-		Tax:    "B",
-	}, bill.Positions[1])
-
-	assert.Equal(t, rewe.Position{
-		Text:   "Wiltmann Bio-Geflügel-Lyoner 80g",
-		Amount: 2,
-		Price:  rewe.Cents(169),
-		Sum:    rewe.Cents(338),
-		Tax:    "B",
-	}, bill.Positions[2])
+	expected := rewe.Bill{
+		Positions: []rewe.Position{
+			{
+				Text:   "REWE Beste Wahl Alaska-Seelachsfilets 400g",
+				Amount: 1,
+				Price:  rewe.Cents(299),
+				Sum:    rewe.Cents(299),
+				Tax:    "B",
+			},
+			{
+				Text:   "REWE Bio Maiswaffeln 115g",
+				Amount: 1,
+				Price:  rewe.Cents(79),
+				Sum:    rewe.Cents(79),
+				Tax:    "B",
+			},
+			{
+				Text:   "Wiltmann Bio-Geflügel-Lyoner 80g",
+				Amount: 2,
+				Price:  rewe.Cents(169),
+				Sum:    rewe.Cents(338),
+				Tax:    "B",
+			},
+		},
+	}
+	assert.DeepEqual(t, expected, bill)
 }
 
 var pdfFixture = Pdf{TextPages: []string{`

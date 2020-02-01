@@ -16,7 +16,7 @@ func TestRead(t *testing.T) {
 	bill, err := Read(f)
 
 	assert.NilError(t, err)
-	assert.Equal(t, 50, len(bill.Positions))
+	assert.Equal(t, 43, len(bill.Positions))
 
 	assert.Equal(t, rewe.Position{
 		Text:   "REWE Beste Wahl Alaska-Seelachsfilets 400g",

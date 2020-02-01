@@ -29,6 +29,10 @@ func isPositionLine(line string) (rewe.Position, bool) {
 
 	check.Equal(len(subMatches), 6, "number of matches does not match regex")
 
+	if isBlacklisted(subMatches[1]) {
+		return rewe.Position{}, false
+	}
+
 	return rewe.Position{
 		Text:   subMatches[1],
 		Amount: asInt(subMatches[2]),
@@ -36,6 +40,18 @@ func isPositionLine(line string) (rewe.Position, bool) {
 		Sum:    asCents(subMatches[4]),
 		Tax:    subMatches[5],
 	}, true
+}
+
+func isBlacklisted(text string) bool {
+	text = strings.ToLower(text)
+
+	for _, blacklisted := range positionBlacklist {
+		if strings.Contains(text, blacklisted) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func asCents(s string) rewe.Cents {
@@ -50,3 +66,4 @@ func asInt(s string) int {
 }
 
 var positionLineRegex = regexp.MustCompile(`(.+) (-?\d+) (-?\d+,\d+ €) (-?\d+,\d+ €) (\w)$`)
+var positionBlacklist = []string{"leergut", "servicegebühr", "pfand"}

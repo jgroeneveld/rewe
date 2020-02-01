@@ -69,12 +69,5 @@ func TestBillCommand(t *testing.T) {
 		"/productList?search=ja%21+Butterk%C3%A4se+400g",
 		"/productList?search=Du+darfst+Apfel-Zwiebel-Leberwurst+100g",
 		"/productList?search=REWE+Beste+Wahl+Windeln+Maxi+42+St%C3%BCck",
-		"/productList?search=Servicegeb%C3%BChr+Lieferung",
-		"/productList?search=Servicegeb%C3%BChr+Lieferung",
-		"/productList?search=Leergut",
-		"/productList?search=Leergut",
-		"/productList?search=PFAND+1%2C50",
-		"/productList?search=PFAND+0%2C25",
-		"/productList?search=PFAND+0%2C25",
 	})
 }
