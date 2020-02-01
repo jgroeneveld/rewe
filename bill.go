@@ -3,6 +3,7 @@ package rewe
 import "io"
 
 type Bill struct {
+	OrderDate string
 	Positions []Position
 }
 

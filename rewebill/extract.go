@@ -9,16 +9,36 @@ import (
 )
 
 func Extract(pdf Pdf) (rewe.Bill, error) {
+	var orderDate string
 	var positions []rewe.Position
 
 	for _, line := range pdf.AllLines() {
+		date, ok := isOrderDateLine(line)
+		if ok {
+			orderDate = date
+		}
+
 		position, ok := isPositionLine(line)
 		if ok {
 			positions = append(positions, position)
 		}
 	}
 
-	return rewe.Bill{Positions: positions}, nil
+	return rewe.Bill{
+		OrderDate: orderDate,
+		Positions: positions,
+	}, nil
+}
+
+func isOrderDateLine(line string) (string, bool) {
+	if !strings.Contains(line, "Bestelldatum") {
+		return "", false
+	}
+
+	parts := strings.Split(line, " ")
+	check.Equal(len(parts), 3, "number of parts in orderDate line is not correct")
+
+	return parts[2], true
 }
 
 func isPositionLine(line string) (rewe.Position, bool) {

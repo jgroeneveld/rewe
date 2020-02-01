@@ -23,6 +23,7 @@ func TestReadBillCommand(t *testing.T) {
 
 	err = schema.MatchJSON(
 		schema.Map{
+			"OrderDate": "08.01.2020",
 			"Positions": schema.ArrayIncluding(
 				schema.Map{
 					"Text":   "REWE Beste Wahl Alaska-Seelachsfilets 400g",
