@@ -1,9 +1,9 @@
 package reweapi
 
 import (
-	"bufio"
 	"encoding/json"
 	"io"
+	"io/ioutil"
 	"rewe"
 	"strings"
 
@@ -33,11 +33,16 @@ func (p SearchPageParserImpl) Parse(r io.Reader) (SearchPage, error) {
 }
 
 func extractJSONString(r io.Reader) (string, error) {
-	scanner := bufio.NewScanner(r)
 	dataLine := ""
 
-	for scanner.Scan() {
-		trimmed := strings.TrimSpace(scanner.Text())
+	all, err := ioutil.ReadAll(r)
+	if err != nil {
+		return "", err
+	}
+
+	lines := strings.Split(string(all), "\n")
+	for _, line := range lines {
+		trimmed := strings.TrimSpace(line)
 		if strings.HasPrefix(trimmed, "renderClientSide") {
 			dataLine = trimmed
 			break
