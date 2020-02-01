@@ -8,7 +8,7 @@ import (
 )
 
 func TestFetchCategoriesCommand(t *testing.T) {
-	server := newFixtureServer(t, "Butter", "search_butter.html")
+	server := newStrictFixtureServer(t, "Butter", "search_butter.html")
 	defer server.Close()
 
 	output := bytes.NewBuffer(nil)
