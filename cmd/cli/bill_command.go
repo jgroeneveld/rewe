@@ -33,12 +33,12 @@ func billCommand(output io.Writer) *cobra.Command {
 				SearchPageParser: reweapi.SearchPageParserImpl{},
 			}
 
-			fullProductInfos, err := rewe.FetchCategoriesForBill(f, rewebill.Reader, fetcher)
+			augmentedBill, err := rewe.AugmentBill(f, rewebill.Reader, fetcher)
 			if err != nil {
 				return err
 			}
 
-			err = writeFullProductInfos(output, fullProductInfos)
+			err = writeAugmentedBill(output, augmentedBill)
 			if err != nil {
 				return err
 			}

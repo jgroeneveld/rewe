@@ -3,16 +3,16 @@ package rewe
 import "io"
 
 type Bill struct {
-	OrderDate string
-	Positions []Position
+	OrderDate string     `json:"order_date"`
+	Positions []Position `json:"positions"`
 }
 
 type Position struct {
-	Text   string
-	Amount int
-	Price  Cents
-	Sum    Cents
-	Tax    string
+	Text   string `json:"text"`
+	Amount int    `json:"amount"`
+	Price  Cents  `json:"price"`
+	Sum    Cents  `json:"sum"`
+	Tax    string `json:"tax"`
 }
 
 type Cents int

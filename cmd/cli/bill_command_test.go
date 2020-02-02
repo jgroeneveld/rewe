@@ -2,8 +2,9 @@ package main
 
 import (
 	"bytes"
-	"strings"
 	"testing"
+
+	"github.com/jgroeneveld/schema"
 
 	"gotest.tools/assert"
 )
@@ -24,7 +25,24 @@ func TestBillCommand(t *testing.T) {
 	err := cmd.Execute()
 	assert.NilError(t, err)
 
-	assert.Check(t, strings.Contains(output.String(), "Landliebe Butter 250g"))
+	err = schema.MatchJSON(
+		schema.Map{
+			"order_date": "08.01.2020",
+			"augmented_positions": schema.ArrayEach(
+				schema.Map{
+					"text":       schema.IsString,
+					"categories": schema.ArrayEach(schema.IsString),
+					"amount":     schema.IsInteger,
+					"price":      schema.IsInteger,
+					"sum":        schema.IsInteger,
+					"tax":        schema.IsString,
+				},
+			),
+		},
+		output,
+	)
+	assert.NilError(t, err)
+
 	assert.DeepEqual(t, captureServer.Requests, []string{
 		"/productList?search=REWE+Beste+Wahl+Alaska-Seelachsfilets+400g",
 		"/productList?search=Iglo+Dill+50g",

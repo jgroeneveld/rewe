@@ -6,8 +6,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type FullProductInfo struct {
-	Product    string   `json:"product"`
+type AugmentedBill struct {
+	OrderDate          string              `json:"order_date"`
+	AugmentedPositions []AugmentedPosition `json:"augmented_positions"`
+}
+
+type AugmentedPosition struct {
+	Text       string   `json:"text"`
 	Categories []string `json:"categories"`
 	Amount     int      `json:"amount"`
 	Price      Cents    `json:"price"`
@@ -15,13 +20,13 @@ type FullProductInfo struct {
 	Tax        string   `json:"tax"`
 }
 
-func FetchCategoriesForBill(rs io.ReadSeeker, br BillReader, fetcher CategoryFetcher) ([]FullProductInfo, error) {
+func AugmentBill(rs io.ReadSeeker, br BillReader, fetcher CategoryFetcher) (AugmentedBill, error) {
 	bill, err := br.Read(rs)
 	if err != nil {
-		return nil, err
+		return AugmentedBill{}, err
 	}
 
-	var infos []FullProductInfo
+	var infos []AugmentedPosition
 	for _, position := range bill.Positions {
 		info, err := fetcher.Fetch(position.Text)
 		if err != nil {
@@ -29,8 +34,8 @@ func FetchCategoriesForBill(rs io.ReadSeeker, br BillReader, fetcher CategoryFet
 			continue
 		}
 
-		infos = append(infos, FullProductInfo{
-			Product:    info.Product,
+		infos = append(infos, AugmentedPosition{
+			Text:       info.Product,
 			Categories: info.Categories,
 			Amount:     position.Amount,
 			Price:      position.Price,
@@ -39,5 +44,8 @@ func FetchCategoriesForBill(rs io.ReadSeeker, br BillReader, fetcher CategoryFet
 		})
 	}
 
-	return infos, nil
+	return AugmentedBill{
+		OrderDate:          bill.OrderDate,
+		AugmentedPositions: infos,
+	}, nil
 }

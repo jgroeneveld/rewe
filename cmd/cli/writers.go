@@ -8,8 +8,8 @@ import (
 	"github.com/pkg/errors"
 )
 
-func writeFullProductInfos(w io.Writer, infos []rewe.FullProductInfo) error {
-	return PrettyJSONWriter{}.Write(w, infos)
+func writeAugmentedBill(w io.Writer, augmentedBill rewe.AugmentedBill) error {
+	return PrettyJSONWriter{}.Write(w, augmentedBill)
 }
 
 func writeCategoryInfo(w io.Writer, info rewe.CategoryInfo) error {

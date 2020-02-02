@@ -23,21 +23,21 @@ func TestReadBillCommand(t *testing.T) {
 
 	err = schema.MatchJSON(
 		schema.Map{
-			"OrderDate": "08.01.2020",
-			"Positions": schema.ArrayIncluding(
+			"order_date": "08.01.2020",
+			"positions": schema.ArrayIncluding(
 				schema.Map{
-					"Text":   "REWE Beste Wahl Alaska-Seelachsfilets 400g",
-					"Amount": 1,
-					"Price":  299,
-					"Sum":    299,
-					"Tax":    "B",
+					"text":   "REWE Beste Wahl Alaska-Seelachsfilets 400g",
+					"amount": 1,
+					"price":  299,
+					"sum":    299,
+					"tax":    "B",
 				},
 				schema.Map{
-					"Text":   "REWE Beste Wahl Weizenmehl Type 405 1kg",
-					"Amount": 1,
-					"Price":  59,
-					"Sum":    59,
-					"Tax":    "B",
+					"text":   "REWE Beste Wahl Weizenmehl Type 405 1kg",
+					"amount": 1,
+					"price":  59,
+					"sum":    59,
+					"tax":    "B",
 				},
 			),
 		},
