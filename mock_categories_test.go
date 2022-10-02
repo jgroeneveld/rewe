@@ -10,30 +10,30 @@ import (
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockCategoryFetcher is a mock of CategoryFetcher interface
+// MockCategoryFetcher is a mock of CategoryFetcher interface.
 type MockCategoryFetcher struct {
 	ctrl     *gomock.Controller
 	recorder *MockCategoryFetcherMockRecorder
 }
 
-// MockCategoryFetcherMockRecorder is the mock recorder for MockCategoryFetcher
+// MockCategoryFetcherMockRecorder is the mock recorder for MockCategoryFetcher.
 type MockCategoryFetcherMockRecorder struct {
 	mock *MockCategoryFetcher
 }
 
-// NewMockCategoryFetcher creates a new mock instance
+// NewMockCategoryFetcher creates a new mock instance.
 func NewMockCategoryFetcher(ctrl *gomock.Controller) *MockCategoryFetcher {
 	mock := &MockCategoryFetcher{ctrl: ctrl}
 	mock.recorder = &MockCategoryFetcherMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockCategoryFetcher) EXPECT() *MockCategoryFetcherMockRecorder {
 	return m.recorder
 }
 
-// Fetch mocks base method
+// Fetch mocks base method.
 func (m *MockCategoryFetcher) Fetch(productName string) (CategoryInfo, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Fetch", productName)
@@ -42,7 +42,7 @@ func (m *MockCategoryFetcher) Fetch(productName string) (CategoryInfo, error) {
 	return ret0, ret1
 }
 
-// Fetch indicates an expected call of Fetch
+// Fetch indicates an expected call of Fetch.
 func (mr *MockCategoryFetcherMockRecorder) Fetch(productName interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockCategoryFetcher)(nil).Fetch), productName)

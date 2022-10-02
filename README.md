@@ -17,7 +17,9 @@ bin/rewe fetch-categories "Apfelsaft" # Looks for the Apfelsaft product on the r
 
 ### Prerequisites
 
-- Install `golangci-lint` for linting. There is a `.golangci.yml` file for configuration.
+
+- Install [goimports](https://pkg.go.dev/golang.org/x/tools/cmd/goimports)
+- Install [golangci-lint](https://github.com/golangci/golangci-lint) for linting. There is a `.golangci.yml` file for configuration.
 - run `scripts/install-pre-commit` to install *build/all* as pre-commit hook.
 
 ### Building

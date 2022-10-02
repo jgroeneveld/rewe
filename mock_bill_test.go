@@ -11,30 +11,30 @@ import (
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockBillReader is a mock of BillReader interface
+// MockBillReader is a mock of BillReader interface.
 type MockBillReader struct {
 	ctrl     *gomock.Controller
 	recorder *MockBillReaderMockRecorder
 }
 
-// MockBillReaderMockRecorder is the mock recorder for MockBillReader
+// MockBillReaderMockRecorder is the mock recorder for MockBillReader.
 type MockBillReaderMockRecorder struct {
 	mock *MockBillReader
 }
 
-// NewMockBillReader creates a new mock instance
+// NewMockBillReader creates a new mock instance.
 func NewMockBillReader(ctrl *gomock.Controller) *MockBillReader {
 	mock := &MockBillReader{ctrl: ctrl}
 	mock.recorder = &MockBillReaderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockBillReader) EXPECT() *MockBillReaderMockRecorder {
 	return m.recorder
 }
 
-// Read mocks base method
+// Read mocks base method.
 func (m *MockBillReader) Read(arg0 io.ReadSeeker) (Bill, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Read", arg0)
@@ -43,7 +43,7 @@ func (m *MockBillReader) Read(arg0 io.ReadSeeker) (Bill, error) {
 	return ret0, ret1
 }
 
-// Read indicates an expected call of Read
+// Read indicates an expected call of Read.
 func (mr *MockBillReaderMockRecorder) Read(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Read", reflect.TypeOf((*MockBillReader)(nil).Read), arg0)

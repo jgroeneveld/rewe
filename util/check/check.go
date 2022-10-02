@@ -2,16 +2,17 @@
 // Basically deal with things that should never happen.
 // Example:
 //
-//  import "rewe/util/check"
+//	import "rewe/util/check"
 //
-//  object, err := someCall()
-//  check.Error(err)
-//  check.Equal(len(object.Vertices), 2, "Number of Vertices")
+//	object, err := someCall()
+//	check.Error(err)
+//	check.Equal(len(object.Vertices), 2, "Number of Vertices")
 //
 // Output:
-//   panic: IllegalState: Number of Vertices
-//   Expected: 2
-//   Actual: 4
+//
+//	panic: IllegalState: Number of Vertices
+//	Expected: 2
+//	Actual: 4
 package check
 
 import "fmt"
