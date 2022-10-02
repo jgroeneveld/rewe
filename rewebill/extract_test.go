@@ -42,7 +42,7 @@ func TestExtract(t *testing.T) {
 
 var pdfFixture = Pdf{TextPages: []string{`
 Rechnung OL20064800054179
-DE Bestelldatum: 02.01.2020
+Bestelldatum: 02.01.2020
 Bestellnummer: B-SQL-2ZV-SYB
 Bezeichnung Menge Einzelpreis Summe Pos. MwSt.
 REWE Beste Wahl Alaska-Seelachsfilets 400g 1 2,99 € 2,99 € B

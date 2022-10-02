@@ -36,9 +36,9 @@ func isOrderDateLine(line string) (string, bool) {
 	}
 
 	parts := strings.Split(line, " ")
-	check.Equal(len(parts), 3, "number of parts in orderDate line is not correct")
+	check.Equal(len(parts), 2, "number of parts in orderDate line is not correct '"+line+"'")
 
-	return parts[2], true
+	return parts[1], true
 }
 
 func isPositionLine(line string) (rewe.Position, bool) {

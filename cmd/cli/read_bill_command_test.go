@@ -15,7 +15,7 @@ func TestReadBillCommand(t *testing.T) {
 	cmd := rootCommand(output)
 	cmd.SetArgs([]string{
 		"read-bill",
-		"../../testdata/rechnung.pdf",
+		"../../testdata/rechnung-blackend.pdf",
 	})
 
 	err := cmd.Execute()

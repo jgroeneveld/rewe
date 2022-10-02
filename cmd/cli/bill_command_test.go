@@ -18,7 +18,7 @@ func TestBillCommand(t *testing.T) {
 	cmd := rootCommand(output)
 	cmd.SetArgs([]string{
 		"bill",
-		"../../testdata/rechnung.pdf",
+		"../../testdata/rechnung-blackend.pdf",
 		"--base-url", captureServer.URL,
 	})
 

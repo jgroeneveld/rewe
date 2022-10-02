@@ -1,8 +1,14 @@
 # Rewe
 
+**Note: This App is outdated Rewe change their online shop.**
+
+----
+
 This app analyzes product names from the Rewe online catalog and fetches the categories from their website.
 
-This can be used to analyze in what categories you spend your money.
+It can read PDF Invoices, augment them with the online category data and compile a JSON report.
+
+This can be used to analyze in what categories of groceries you spend your money.
 
 ## Usage
 
@@ -16,7 +22,6 @@ bin/rewe fetch-categories "Apfelsaft" # Looks for the Apfelsaft product on the r
 ## Development
 
 ### Prerequisites
-
 
 - Install [goimports](https://pkg.go.dev/golang.org/x/tools/cmd/goimports)
 - Install [golangci-lint](https://github.com/golangci/golangci-lint) for linting. There is a `.golangci.yml` file for configuration.

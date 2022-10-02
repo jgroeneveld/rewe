@@ -9,7 +9,7 @@ import (
 )
 
 func TestReadPdf(t *testing.T) {
-	f, err := os.Open("../testdata/rechnung.pdf")
+	f, err := os.Open("../testdata/rechnung-blackend.pdf")
 	assert.NilError(t, err)
 	defer f.Close()
 
